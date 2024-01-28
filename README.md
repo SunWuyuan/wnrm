@@ -1,9 +1,9 @@
-nrm -- NPM registry manager
+wnrm -- NPM and YARN registry manager
 ===
 
 [![NPM version][npm-image]][npm-url]
 
-`nrm` can help you easy and fast switch between different npm registries,
+`wnrm` can help you easy and fast switch between different npm registries,
 now include: `npm`, `cnpm`, `taobao`, `nj(nodejitsu)`.
 
 ## How to configure yarn to use private registry ?
@@ -16,12 +16,12 @@ Or you can configure it in your HOME directory's .yarnrc
 ## Install
 
 ```
-$ npm install -g nrm
+$ npm install -g wnrm
 ```
 
 ## Example
 ```
-$ nrm ls
+$ wnrm ls
 
 * npm ---------- https://registry.npmjs.org/
   yarn --------- https://registry.yarnpkg.com/
@@ -33,7 +33,7 @@ $ nrm ls
 ```
 
 ```
-$ nrm use cnpm  //switch registry to cnpm
+$ wnrm use cnpm  //switch registry to cnpm
 
     Registry has been set to: http://r.cnpmjs.org/
 
@@ -42,7 +42,7 @@ $ nrm use cnpm  //switch registry to cnpm
 ## Usage
 
 ```
-Usage: nrm [options] [command]
+Usage: wnrm [options] [command]
 
   Commands:
 
@@ -102,7 +102,7 @@ When you are using a custom registry you will need to run the `set-hosted-repo` 
 
 ## Maintainer is wanted
 
-If you find nrm is useful and is a experienced node.js developer, then you can help maintain nrm.
+If you find wnrm is useful and is a experienced node.js developer, then you can help maintain wnrm.
 If you have the interest you can reach me through email: pana.wang@outlook.com
 
 ## Contributors 
@@ -113,5 +113,5 @@ If you have the interest you can reach me through email: pana.wang@outlook.com
 MIT
 
 
-[npm-image]: https://img.shields.io/npm/v/nrm.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/nrm
+[npm-image]: https://img.shields.io/npm/v/wnrm.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/wnrm

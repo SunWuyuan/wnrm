@@ -3,7 +3,7 @@ const ini = require('ini');
 const chalk = require('chalk');
 const process = require('./process');
 
-const { NRMRC, NPMRC, REGISTRY, REGISTRIES } = require('./constants');
+const { NRMRC, NPMRC,YARNRC, REGISTRY, REGISTRIES } = require('./constants');
 
 async function readFile(file) {
   return new Promise(resolve => {
@@ -31,6 +31,16 @@ async function writeFile(path, content) {
   });
 }
 
+async function writeYarnFile(path, content) {
+  return new Promise(resolve => {
+    try {
+      fs.writeFileSync(path, `registry "${content.registry}"`);
+      resolve();
+    } catch (error) {
+      exit(error);
+    }
+  });
+}
 function padding(message = '', before = 1, after = 1) {
   return new Array(before).fill(' ').join('') + message + new Array(after).fill(' ').join('');
 }
@@ -103,6 +113,7 @@ module.exports = {
   isLowerCaseEqual,
   readFile,
   writeFile,
+  writeYarnFile,
   getRegistries,
   getCurrentRegistry,
   isRegistryNotFound,

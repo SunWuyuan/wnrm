@@ -6,6 +6,7 @@ const {
   exit,
   readFile,
   writeFile,
+  writeYarnFile,
   geneDashLine,
   printMessages,
   printSuccess,
@@ -16,7 +17,7 @@ const {
   isInternalRegistry,
 } = require('./helpers');
 
-const { NRMRC, NPMRC, AUTH, EMAIL, ALWAYS_AUTH, REPOSITORY, REGISTRY, HOME } = require('./constants');
+const { NRMRC, NPMRC,YARNRC, AUTH, EMAIL, ALWAYS_AUTH, REPOSITORY, REGISTRY, HOME } = require('./constants');
 
 async function onList() {
   const currentRegistry = await getCurrentRegistry();
@@ -61,7 +62,8 @@ async function onUse(name) {
   const registry = registries[name];
   const npmrc = await readFile(NPMRC);
   await writeFile(NPMRC, Object.assign(npmrc, registry));
-
+  const yarnrc = await readFile(YARNRC);
+  await writeYarnFile(YARNRC, registry);
   printSuccess(`The registry has been changed to '${name}'.`);
 }
 
@@ -137,6 +139,14 @@ async function onLogin(name, base64, { alwaysAuth, username, password, email }) 
       [EMAIL]: registry[EMAIL],
     }));
   }
+  if (currentRegistry === registry[REGISTRY]) {
+    const yarnrc = await readFile(YARNRC);
+    await writeFile(YARNRC, Object.assign(yarnrc, {
+      [AUTH]: registry[AUTH],
+      [ALWAYS_AUTH]: registry[ALWAYS_AUTH],
+      [EMAIL]: registry[EMAIL],
+    }));
+  }
 }
 
 async function onSetRepository(name, repo) {
@@ -157,6 +167,12 @@ async function onSetRepository(name, repo) {
     await writeFile(NPMRC, npmrc);
     printSuccess(`Set repository attribute of npmrc successfully`);
   }
+  if (currentRegistry && registry[REGISTRY] === currentRegistry) {
+    const yarnrc = await readFile(YARNRC);
+    Object.assign(yarnrc, { [REPOSITORY]: repo });
+    await writeFile(YARNRC, yarnrc);
+    printSuccess(`Set repository attribute of yarnrc successfully`);
+  }
 }
 
 async function onSetScope(scopeName, url) {
@@ -164,6 +180,9 @@ async function onSetScope(scopeName, url) {
   const npmrc = await readFile(NPMRC);
   Object.assign(npmrc, { [scopeRegistryKey]: url });
   await writeFile(NPMRC, npmrc);
+  const yarnrc = await readFile(YARNRC);
+  Object.assign(yarnrc, { [scopeRegistryKey]: url });
+  await writeFile(YARNRC, yarnrc);
   printSuccess(`Set scope '${scopeRegistryKey}=${url}' success.`);
 }
 
@@ -173,6 +192,12 @@ async function onDeleteScope(scopeName) {
   if (npmrc[scopeRegistryKey]) {
     delete npmrc[scopeRegistryKey];
     await writeFile(NPMRC, npmrc);
+    printSuccess(`Delete scope '${scopeRegistryKey}' success.`);
+  }
+  const yarnrc = await readFile(YARNRC);
+  if (yarnrc[scopeRegistryKey]) {
+    delete yarnrc[scopeRegistryKey];
+    await writeFile(YARNRC, yarnrc);
     printSuccess(`Delete scope '${scopeRegistryKey}' success.`);
   }
 }
@@ -195,6 +220,8 @@ async function onSetAttribute(name, { attr, value }) {
   if (currentRegistry === registry[REGISTRY]) {
     const npmrc = await readFile(NPMRC);
     await writeFile(NPMRC, Object.assign(npmrc, { [attr]: value }));
+    const yarnrc = await readFile(YARNRC);
+    await writeFile(YARNRC, Object.assign(yarnrc, { [attr]: value }));
   }
 }
 

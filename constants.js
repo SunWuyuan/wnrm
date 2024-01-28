@@ -10,10 +10,12 @@ const ALWAYS_AUTH = 'always-auth';
 const REGISTRY_ATTRS = [REGISTRY, HOME, AUTH, ALWAYS_AUTH];
 const NRMRC = path.join(process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'], '.nrmrc');
 const NPMRC = path.join(process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'], '.npmrc');
+const YARNRC = path.join(process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'], '.yarnrc');
 
 module.exports = {
   NRMRC,
   NPMRC,
+  YARNRC,
   REGISTRIES,
   AUTH,
   ALWAYS_AUTH,

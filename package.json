@@ -1,26 +1,28 @@
 {
-  "name": "nrm",
-  "version": "1.2.5",
-  "description": "NPM registry manager can help you easy and fast switch between different npm registries, now include: cnpm, taobao, nj(nodejitsu), edunpm",
-  "bin": "./cli.js",
+  "name": "wnrm",
+  "version": "1.0.0",
+  "description": "NPM and YARN registry manager can help you easy and fast switch between different npm registries, now include: cnpm, taobao, nj(nodejitsu), edunpm",
+  "bin": {
+    "wnrm": "./cli.js"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Pana/nrm.git"
+    "url": "git://github.com/Sunwuyuan/wnrm.git"
   },
   "scripts": {
-    "star": "npm star nrm",
+    "star": "npm star wnrm",
     "test": "jest"
   },
   "keywords": [
     "NPM",
     "registry"
   ],
-  "author": "Pana",
+  "author": "SunWuyuan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Pana/nrm/issues"
+    "url": "https://github.com/SunWuyuan/wnrm/issues"
   },
-  "homepage": "https://github.com/Pana/nrm",
+  "homepage": "https://github.com/SunWuyuan/wnrm",
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^8.3.0",
